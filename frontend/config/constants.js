@@ -1,4 +1,5 @@
 import ContractMeta from "./contractMeta.json";
+
 const { abi } = require(`../artifacts/contracts/${ContractMeta.name}.sol/${ContractMeta.name}.json`);
 
 

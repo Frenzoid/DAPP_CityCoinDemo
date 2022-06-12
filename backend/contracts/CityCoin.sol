@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 
 /**
- * @title A token, bank and promissory notes contract, CityCoin Project.
+ * @title CityCoin Project, an ERC20 with multiple purposes.
  * @author Frenzoid.dev
  */
 contract CityCoin is ERC20Pausable, Ownable, ReentrancyGuard {
@@ -74,6 +74,20 @@ contract CityCoin is ERC20Pausable, Ownable, ReentrancyGuard {
      */
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
+    }
+
+    /**
+     * @dev Pauses contract transfers
+     */
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    /**
+     * @dev Unpauses contract transfers
+     */
+    function unpause() public onlyOwner {
+        _unpause();
     }
 
     /// --- Public Functions --- ///

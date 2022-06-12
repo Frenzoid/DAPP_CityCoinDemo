@@ -13,6 +13,7 @@ export default function Home() {
   const [web3provider, setWeb3provider] = useState(null);
   const [walletConnected, setWalletConnected] = useState(false);
   const [onTransaction, setOnTransaction] = useState(false);
+  const [onAccountChanged, setOnAccountChanged] = useState(false);
   const [wrongNetwork, setWrongNetwork] = useState(true);
 
   // Wallet Connect function, calls to connect the wallet, and initalized all web3 components of the react app.
@@ -37,13 +38,13 @@ export default function Home() {
     return web3mod;
   }
 
-  const getBalance = async (address) => {
-    return await (getEthersProvider().getBalance(address));
-  }
-
   const getEthersProvider = () => {
     const provider = new providers.Web3Provider(web3provider);
     return provider;
+  }
+
+  const getBalance = async (address) => {
+    return await getEthersProvider().getBalance(address);
   }
 
   const getSigner = () => {
@@ -60,8 +61,14 @@ export default function Home() {
 
   const getENSorAdress = async (adress) => {
     const provider = getEthersProvider();
-    const ens = await provider.lookupAddress(adress);
-    return ens || adress;
+    let ens;
+    try {
+      ens = await provider.lookupAddress(adress);
+    } catch (e) {
+      console.warning(e);
+    } finally {
+      return ens || adress;
+    }
   }
 
 
@@ -72,6 +79,7 @@ export default function Home() {
 
     // Set events.
     web3provider.on('chainChanged', _ => checkNetwork());
+    web3provider.on('accountsChanged', accs => setOnAccountChanged(accs));
   }
 
   const checkNetwork = async () => {
@@ -125,7 +133,8 @@ export default function Home() {
             setOnTransaction={setOnTransaction}
             wrongNetwork={wrongNetwork}
             contract={getContract()}
-            signer={getSigner()}
+            getSigner={getSigner}
+            onAccountChanged={onAccountChanged}
             getENSorAdress={getENSorAdress}
             getBalance={getBalance}
           />
@@ -147,7 +156,7 @@ export default function Home() {
       <div className={"container"}>
         {renderConnectButton()}
         {renderBody()}
-        <footer className={"text-center fixed-bottom"}>Created by <a href="https://frenzoid.dev" className={"text-primary"}>{DEPLOYER_ADDRESS} - MrFrenzoid</a> </footer>
+        <footer className={"text-center fixed-bottom"}>Created by <a href="https://frenzoid.dev" className={"text-primary"}>MrFrenzoid at University of Alicante</a> .</footer>
       </div>
     </div>
   )
