@@ -1,0 +1,33 @@
+{
+  "name": "dapp-citycoin",
+  "version": "1.0.0",
+  "description": "An ERC20 token with multiple purposes",
+  "main": "index.js",
+  "scripts": {
+    "node": "hardhat node",
+    "compile": "hardhat compile",
+    "deploy-local": "hardhat run ./scripts/deploy.js --network localhost",
+    "deploy-rinkeby": "hardhat run ./scripts/deploy.js --network rinkeby",
+    "deploy-ropsten": "hardhat run ./scripts/deploy.js --network ropsten",
+    "deploy-mumbai": "hardhat run ./scripts/deploy.js --network mumbai",
+    "deploy-goerli": "hardhat run ./scripts/deploy.js --network goerli",
+    "test": "hardhat test"
+  },
+  "keywords": [],
+  "author": "Frenzoid",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.6.7",
+    "hardhat": "^2.9.6"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "@openzeppelin/contracts": "^4.6.0",
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security"
+  }
+}
